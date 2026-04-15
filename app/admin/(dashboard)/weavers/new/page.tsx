@@ -1,0 +1,1 @@
+export default function Page() { return <div className="p-8"><h1 className="text-2xl font-display capitalize text-night">weavers/new</h1><p className="text-smoke mt-2">This page is under construction.</p></div> }

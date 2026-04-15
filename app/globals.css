@@ -1,0 +1,144 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-clay:    #8C4A30;
+    --color-saffron: #C17A2C;
+    --color-linen:   #F4EFE5;
+    --color-night:   #1C1815;
+    --color-smoke:   #9B8F85;
+    --color-argane:  #3C5D4E;
+    --color-bone:    #E6DDD1;
+    --color-bone2:   #D9CFBF;
+
+    /* shadcn/ui CSS variables */
+    --background: 40 33% 95%;
+    --foreground: 24 15% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 24 15% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 24 15% 10%;
+    --primary: 15 51% 37%;
+    --primary-foreground: 40 33% 95%;
+    --secondary: 30 14% 86%;
+    --secondary-foreground: 24 15% 10%;
+    --muted: 30 14% 86%;
+    --muted-foreground: 24 8% 56%;
+    --accent: 30 14% 86%;
+    --accent-foreground: 24 15% 10%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 30 18% 86%;
+    --input: 30 18% 80%;
+    --ring: 15 51% 37%;
+    --radius: 0.25rem;
+    --sidebar-background:    24 15% 9%;
+    --sidebar-foreground:    24 8% 56%;
+    --sidebar-primary:    30 45% 48%;
+    --sidebar-primary-foreground:    40 33% 95%;
+    --sidebar-accent:    20 12% 16%;
+    --sidebar-accent-foreground:    40 33% 95%;
+    --sidebar-border:    20 10% 16%;
+    --sidebar-ring:    15 51% 37%;
+  }
+
+  html { background-color: var(--color-linen); }
+
+  body {
+    font-family: 'Josefin Sans', system-ui, sans-serif;
+    color: var(--color-night);
+    background-color: var(--color-linen);
+    -webkit-font-smoothing: antialiased;
+    font-weight: 300;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 400;
+    font-optical-sizing: auto;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--color-bone); }
+  ::-webkit-scrollbar-thumb { background: var(--color-clay); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-argane); }
+  .dark {
+    --sidebar-background:    240 5.9% 10%;
+    --sidebar-foreground:    240 4.8% 95.9%;
+    --sidebar-primary:    224.3 76.3% 48%;
+    --sidebar-primary-foreground:    0 0% 100%;
+    --sidebar-accent:    240 3.7% 15.9%;
+    --sidebar-accent-foreground:    240 4.8% 95.9%;
+    --sidebar-border:    240 3.7% 15.9%;
+    --sidebar-ring:    217.2 91.2% 59.8%;
+  }
+}
+
+@layer components {
+  /* Button — Primary */
+  .btn-primary {
+    @apply inline-flex items-center gap-[8px] bg-argane text-bone px-[24px] py-[12px] 
+           text-label uppercase tracking-[0.1em] rounded-brand
+           transition-colors duration-200 hover:bg-clay;
+  }
+  
+  /* Button — Secondary */
+  .btn-secondary {
+    @apply inline-flex items-center gap-[8px] bg-transparent text-night 
+           border border-night/40 px-[24px] py-[12px] text-label uppercase tracking-[0.1em] 
+           rounded-brand transition-colors duration-200 hover:border-night/80;
+  }
+  
+  /* Button — Ghost */
+  .btn-ghost {
+    @apply inline-flex items-center gap-[4px] text-smoke text-label uppercase 
+           tracking-[0.05em] underline underline-offset-4 
+           transition-colors duration-200 hover:text-night;
+  }
+
+  /* Tag / Badge */
+  .tag {
+    @apply inline-block bg-bone text-clay/80 text-label-sm uppercase 
+           tracking-[0.1em] px-[10px] py-[4px] rounded-brand;
+  }
+  
+  .tag-cta {
+    @apply inline-block bg-clay text-linen text-label-sm uppercase 
+           tracking-[0.1em] px-[10px] py-[4px] rounded-brand;
+  }
+  
+  .tag-fair-trade {
+    @apply inline-block bg-argane text-bone/90 text-label-sm uppercase 
+           tracking-[0.1em] px-[10px] py-[4px] rounded-brand;
+  }
+
+  /* Product card */
+  .product-card {
+    @apply bg-linen/60 border border-bone2 rounded-brand overflow-hidden 
+           transition-all duration-200 hover:border-clay/60;
+  }
+  
+  /* Section divider with diamond motif */
+  .divider-motif {
+    @apply flex items-center gap-[16px] text-bone2;
+  }
+  
+  /* Input field */
+  .input-brand {
+    @apply w-full bg-bone border border-bone2 rounded-brand-sm px-[16px] py-[12px] 
+           text-sm text-night placeholder:text-smoke 
+           focus:outline-none focus:border-clay/60 transition-colors;
+  }
+
+  /* Hide scrollbar utility */
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
