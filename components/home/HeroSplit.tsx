@@ -40,7 +40,7 @@ export function HeroSplit() {
 
       <div className="w-full md:w-1/2 relative min-h-[50vh] md:min-h-screen bg-bone">
         <Image
-          src="https://images.unsplash.com/photo-1596489392276-8848db71d3a4?auto=format&fit=crop&q=80&w=1200&h=1600"
+          src="https://images.unsplash.com/photo-1600166898405-da9535204843?auto=format&fit=crop&q=80&w=1200&h=1600"
           alt="Authentic Beni Ourain rug draped in natural sunlight"
           fill
           priority

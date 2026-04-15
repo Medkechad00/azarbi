@@ -91,10 +91,11 @@ export function Navbar() {
           >
             <Image
               src="/logo.svg"
-              alt="Azarbi"
+              alt="Azarbi — Handwoven Berber Rugs from Morocco"
               width={160}
               height={43}
               priority
+              loading="eager"
             />
           </Link>
         </div>

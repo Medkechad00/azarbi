@@ -35,8 +35,9 @@ export function OriginSection() {
         <div className="w-full lg:w-1/2 relative aspect-square lg:aspect-[4/3] rounded-brand overflow-hidden filter grayscale opacity-80 mix-blend-screen">
           <Image 
             src="https://images.unsplash.com/photo-1539020140153-e479b8c22e70?auto=format&fit=crop&q=80&w=1200&h=900" 
-            alt="The High Atlas Mountains of Morocco"
+            alt="Panoramic view of the High Atlas Mountains where Azarbi's weaving cooperatives are based"
             fill
+            sizes="(max-width: 1024px) 100vw, 50vw"
             className="object-cover"
           />
         </div>

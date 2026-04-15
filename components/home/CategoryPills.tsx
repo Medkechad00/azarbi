@@ -2,10 +2,10 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 const categories = [
-  { id: 'beni-ourain', label: 'Beni Ourain', image: 'https://images.unsplash.com/photo-1600166898405-da9535204843?q=80&w=400&h=400&fit=crop' },
-  { id: 'azilal', label: 'Azilal', image: 'https://images.unsplash.com/photo-1600607688033-b4e64f02fa3f?q=80&w=400&h=400&fit=crop' },
-  { id: 'kilim', label: 'Kilim', image: 'https://images.unsplash.com/photo-1542868725-582cb696122d?q=80&w=400&h=400&fit=crop' },
-  { id: 'boucherouite', label: 'Boucherouite', image: 'https://images.unsplash.com/photo-1582582494705-f8ce0b0c24f0?q=80&w=400&h=400&fit=crop' },
+  { id: 'beni-ourain', label: 'Beni Ourain', image: 'https://images.unsplash.com/photo-1600166898405-da9535204843?auto=format&fit=crop&q=80&w=400&h=400' },
+  { id: 'azilal', label: 'Azilal', image: 'https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?auto=format&fit=crop&q=80&w=400&h=400' },
+  { id: 'kilim', label: 'Kilim', image: 'https://images.unsplash.com/photo-1489749798305-4fea3ae63d23?auto=format&fit=crop&q=80&w=400&h=400' },
+  { id: 'boucherouite', label: 'Boucherouite', image: 'https://images.unsplash.com/photo-1539020140153-e479b8c22e70?auto=format&fit=crop&q=80&w=400&h=400' },
 ]
 
 export function CategoryPills() {

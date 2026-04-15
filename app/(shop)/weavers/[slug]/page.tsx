@@ -101,8 +101,9 @@ export default async function WeaverProfilePage(props: {
         <div className="w-full lg:w-1/2 relative min-h-[50vh] lg:min-h-full bg-bone filter sepia-[0.1] contrast-[1.05]">
           <Image 
             src={weaver.portrait_url || 'https://images.unsplash.com/photo-1544457070-4cd773b4d71e?auto=format&fit=crop&q=80&w=800&h=1067'} 
-            alt={`Portrait of ${weaver.name}`}
+            alt={`Portrait of ${weaver.name}, master Berber rug weaver from ${(weaver.cooperatives as any)?.region || 'the Atlas Mountains'}`}
             fill
+            sizes="(max-width: 1024px) 100vw, 50vw"
             className="object-cover"
             priority
           />

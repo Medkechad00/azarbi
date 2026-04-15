@@ -28,8 +28,9 @@ export default function AboutPage() {
           <div className="w-full lg:w-1/2 relative aspect-[4/3] rounded-brand overflow-hidden filter grayscale opacity-90">
             <Image 
               src="https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?auto=format&fit=crop&q=80&w=1200"
-              alt="Artisan weaving"
+              alt="Amazigh woman artisan hand-weaving a traditional Berber rug on a wooden loom in the Atlas Mountains"
               fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover"
             />
           </div>
@@ -57,8 +58,9 @@ export default function AboutPage() {
           <div className="w-full lg:w-1/2 relative aspect-[4/3] rounded-brand bg-bone overflow-hidden filter grayscale opacity-90">
             <Image 
               src="https://images.unsplash.com/photo-1600166898405-da9535204843?auto=format&fit=crop&q=80&w=1200"
-              alt="Hands tying a knot"
+              alt="Close-up of skilled hands tying intricate knots in a handwoven Moroccan Berber rug"
               fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover"
             />
           </div>

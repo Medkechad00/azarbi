@@ -44,8 +44,9 @@ export default async function WeaversPage() {
               <div className="relative aspect-[3/4] overflow-hidden rounded-brand bg-bone border border-bone2">
                 <Image 
                   src={weaver.portrait_url || 'https://images.unsplash.com/photo-1544457070-4cd773b4d71e?auto=format&fit=crop&q=80&w=800&h=1067'} 
-                  alt={`Portrait of ${weaver.name}`}
+                  alt={`Portrait of ${weaver.name}, Amazigh master weaver`}
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover transition-transform duration-700 group-hover:scale-105 filter grayscale hover:grayscale-0 duration-500"
                 />
               </div>

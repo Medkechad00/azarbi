@@ -24,9 +24,10 @@ export async function FeaturedWeaver() {
           
           <div className="w-full lg:w-1/2 relative aspect-[4/5] overflow-hidden rounded-brand bg-bone">
             <Image 
-              src={weaver.portrait_url || 'https://images.unsplash.com/photo-1544457070-4cd773b4d71e'} 
-              alt={`Portrait of ${weaver.name}, master weaver`}
+              src={weaver.portrait_url || 'https://images.unsplash.com/photo-1544457070-4cd773b4d71e?auto=format&fit=crop&q=80&w=800&h=1000'} 
+              alt={`Portrait of ${weaver.name}, master weaver from the Atlas Mountains`}
               fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover"
             />
           </div>
