@@ -1,5 +1,5 @@
 export function OrganizationSchema() {
-  const schema = {
+  const orgSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Azarbi",
@@ -16,8 +16,8 @@ export function OrganizationSchema() {
     "contactPoint": [{
       "@type": "ContactPoint",
       "contactType": "customer service",
-      "availableLanguage": ["English","French","Arabic"],
-      "contactOption": "TollFree"
+      "email": "hello@azarbi.com",
+      "availableLanguage": ["English","French","Arabic"]
     }],
     "sameAs": [
       "https://www.instagram.com/azarbi",
@@ -25,11 +25,32 @@ export function OrganizationSchema() {
       "https://www.tiktok.com/@azarbi"
     ]
   }
+
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Azarbi",
+    "url": "https://azarbi.com",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://azarbi.com/collections?q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
+  }
   
   return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+      />
+    </>
   )
 }

@@ -5,6 +5,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Metadata } from 'next'
 import DOMPurify from 'isomorphic-dompurify'
+import { ArticleSchema } from '@/components/seo/ArticleSchema'
+import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema'
 
 export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const params = await props.params;
@@ -36,6 +38,12 @@ export default async function ArticlePage(props: { params: Promise<{ slug: strin
 
   return (
     <article className="bg-linen min-h-screen pb-32">
+      <ArticleSchema article={post} />
+      <BreadcrumbSchema items={[
+        { name: 'Home', url: 'https://azarbi.com' },
+        { name: 'Journal', url: 'https://azarbi.com/journal' },
+        { name: post.title, url: `https://azarbi.com/journal/${post.slug}` },
+      ]} />
       {/* Hero Image */}
       <div className="w-full h-[60vh] relative bg-bone relative group">
         {post.cover_image_url && (

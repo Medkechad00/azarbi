@@ -3,6 +3,8 @@ import { CollectionHeader } from '@/components/product/CollectionHeader'
 import { ProductFilters } from '@/components/product/ProductFilters'
 import { PaginatedGrid } from '@/components/product/PaginatedGrid'
 import { Metadata } from 'next'
+import { CollectionSchema } from '@/components/seo/CollectionSchema'
+import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema'
 
 export const metadata: Metadata = {
   title: 'All Collections — Azarbi Rugs',
@@ -49,6 +51,17 @@ export default async function CollectionsPage(props: {
 
   return (
     <div className="bg-linen min-h-screen pb-32">
+      <CollectionSchema
+        name={`${headerTitle} — Azarbi Rugs`}
+        description={`Explore our ${headerTitle.toLowerCase()} collection of authentic Moroccan Berber rugs.`}
+        url={filterCat === 'all' ? 'https://azarbi.com/collections' : `https://azarbi.com/collections/${filterCat}`}
+        products={(products as any) || []}
+      />
+      <BreadcrumbSchema items={[
+        { name: 'Home', url: 'https://azarbi.com' },
+        { name: 'Collections', url: 'https://azarbi.com/collections' },
+        ...(filterCat !== 'all' ? [{ name: headerTitle, url: `https://azarbi.com/collections/${filterCat}` }] : []),
+      ]} />
       <CollectionHeader 
         title={headerTitle}
         category={filterCat === 'all' ? undefined : filterCat}

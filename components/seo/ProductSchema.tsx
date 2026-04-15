@@ -41,23 +41,43 @@ export function ProductSchema({ product }: ProductSchemaProps) {
       }
     },
     "material": product.material_pile || "Wool",
+    "color": product.material_pile || "Natural",
     "countryOfOrigin": "Morocco",
-    "isSimilarTo": {
-      "@type": "Product",
-      "name": "Handwoven Moroccan Berber Rug"
-    },
+    "additionalProperty": [
+      {
+        "@type": "PropertyValue",
+        "name": "Width",
+        "value": product.width_cm,
+        "unitCode": "CMT"
+      },
+      {
+        "@type": "PropertyValue",
+        "name": "Length",
+        "value": product.length_cm,
+        "unitCode": "CMT"
+      }
+    ],
     "offers": {
       "@type": "Offer",
       "url": `https://azarbi.com/products/${product.slug}`,
       "priceCurrency": "USD",
       "price": product.price_usd,
       "priceValidUntil": new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+      "itemCondition": "https://schema.org/NewCondition",
       "availability": product.status === 'available'
         ? "https://schema.org/InStock"
         : "https://schema.org/OutOfStock",
       "seller": {
         "@type": "Organization",
         "name": "Azarbi"
+      },
+      "hasMerchantReturnPolicy": {
+        "@type": "MerchantReturnPolicy",
+        "applicableCountry": "US",
+        "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+        "merchantReturnDays": 14,
+        "returnMethod": "https://schema.org/ReturnByMail",
+        "returnFees": "https://schema.org/FreeReturn"
       },
       "shippingDetails": {
         "@type": "OfferShippingDetails",

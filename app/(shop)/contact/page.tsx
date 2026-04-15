@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
+import { ContactPageSchema } from '@/components/seo/ContactPageSchema'
 
 export const metadata: Metadata = {
   title: 'Contact Us — Azarbi',
@@ -44,6 +45,7 @@ export default async function ContactPage() {
 
   return (
     <div className="bg-linen min-h-screen pt-24 pb-32">
+      <ContactPageSchema />
       <div className="container mx-auto px-6 lg:px-12">
 
         {/* Title */}

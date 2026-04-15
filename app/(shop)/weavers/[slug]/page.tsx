@@ -4,6 +4,8 @@ import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import { Metadata } from 'next'
 import { ProductGrid } from '@/components/product/ProductGrid'
+import { PersonSchema } from '@/components/seo/PersonSchema'
+import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema'
 
 export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const params = await props.params;
@@ -62,6 +64,12 @@ export default async function WeaverProfilePage(props: {
 
   return (
     <div className="bg-linen min-h-screen pb-32">
+      <PersonSchema weaver={weaver} />
+      <BreadcrumbSchema items={[
+        { name: 'Home', url: 'https://azarbi.com' },
+        { name: 'Weavers', url: 'https://azarbi.com/weavers' },
+        { name: weaver.name, url: `https://azarbi.com/weavers/${weaver.slug}` },
+      ]} />
       
       {/* Split Hero */}
       <div className="flex flex-col lg:flex-row min-h-[85vh] border-b border-bone2">
