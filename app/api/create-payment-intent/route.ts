@@ -3,9 +3,11 @@ import Stripe from 'stripe'
 import { createClient } from '@/lib/supabase/server'
 import { rateLimit, rateLimitExceeded } from '@/lib/rate-limit'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-  apiVersion: '2023-10-16' as any,
-})
+function getStripe() {
+  return new Stripe(process.env.STRIPE_SECRET_KEY as string, {
+    apiVersion: '2023-10-16' as any,
+  })
+}
 
 export async function POST(req: NextRequest) {
   const { success } = rateLimit(req, { limit: 10, windowSeconds: 60 })
@@ -48,7 +50,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Invalid order total' }, { status: 400 })
     }
 
-    const paymentIntent = await stripe.paymentIntents.create({
+    const paymentIntent = await getStripe().paymentIntents.create({
       amount: Math.round(totalAmount * 100), // convert to cents
       currency: 'usd',
       automatic_payment_methods: { enabled: true },

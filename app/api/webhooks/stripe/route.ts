@@ -3,12 +3,15 @@ import Stripe from 'stripe'
 import { createClient } from '@/lib/supabase/server'
 import { Resend } from 'resend'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-  apiVersion: '2023-10-16' as any,
-})
+function getStripe() {
+  return new Stripe(process.env.STRIPE_SECRET_KEY as string, {
+    apiVersion: '2023-10-16' as any,
+  })
+}
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!
+function getResend() {
+  return new Resend(process.env.RESEND_API_KEY)
+}
 
 export async function POST(req: NextRequest) {
   const body = await req.text()
@@ -17,7 +20,7 @@ export async function POST(req: NextRequest) {
   let event: Stripe.Event
 
   try {
-    event = stripe.webhooks.constructEvent(body, sig, webhookSecret)
+    event = getStripe().webhooks.constructEvent(body, sig, process.env.STRIPE_WEBHOOK_SECRET!)
   } catch (err: any) {
     console.error('Webhook signature verification failed:', err.message)
     return NextResponse.json({ error: 'Webhook verification failed' }, { status: 400 })
@@ -36,7 +39,7 @@ export async function POST(req: NextRequest) {
     
     // Sending email via Resend
     try {
-      await resend.emails.send({
+      await getResend().emails.send({
         from: 'Azarbi Orders <orders@azarbi.com>',
         to: [customerEmail],
         subject: 'Order Confirmation — Azarbi Masterweavers',

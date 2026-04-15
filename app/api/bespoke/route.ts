@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
   } catch (err: any) {
     if (err instanceof z.ZodError) {
       return NextResponse.json(
-        { error: 'Invalid form data', details: err.errors.map(e => e.message) },
+        { error: 'Invalid form data', details: err.issues.map(e => e.message) },
         { status: 400 }
       )
     }
