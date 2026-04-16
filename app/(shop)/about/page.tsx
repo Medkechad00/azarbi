@@ -1,8 +1,34 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { Metadata } from 'next'
 import { Button } from '@/components/ui/button'
 
-export const metadata = { title: 'Our Story — Azarbi Masterweavers' }
+export const metadata: Metadata = {
+  title: 'Our Story — Azarbi | Fair Trade Moroccan Rugs',
+  description: 'Azarbi connects you directly with women-led weaving cooperatives in Morocco\'s Atlas Mountains. Fair trade, zero middlemen, one-of-a-kind handwoven Berber rugs.',
+  keywords: 'Moroccan rugs, Berber rugs, Atlas Mountains, fair trade rugs, handwoven rugs, Amazigh weavers, Beni Ourain, artisan cooperatives',
+  openGraph: {
+    title: 'Our Story — Azarbi | Fair Trade Moroccan Rugs',
+    description: 'Azarbi connects you directly with women-led weaving cooperatives in Morocco\'s Atlas Mountains. Fair trade, zero middlemen, one-of-a-kind handwoven Berber rugs.',
+    url: 'https://azarbi.com/about',
+    type: 'website',
+    images: [{
+      url: '/og-about.jpg',
+      width: 1200,
+      height: 630,
+      alt: 'Azarbi — Handwoven Berber Rugs from Atlas Mountains'
+    }]
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Our Story — Azarbi | Fair Trade Moroccan Rugs',
+    description: 'Azarbi connects you directly with women-led weaving cooperatives in Morocco\'s Atlas Mountains. Fair trade, zero middlemen.',
+    images: ['/og-about.jpg']
+  },
+  alternates: {
+    canonical: 'https://azarbi.com/about'
+  }
+}
 
 export default function AboutPage() {
   return (

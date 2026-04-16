@@ -6,6 +6,27 @@ import { ContactPageSchema } from '@/components/seo/ContactPageSchema'
 export const metadata: Metadata = {
   title: 'Contact Us — Azarbi',
   description: 'Get in touch with the Azarbi team. We\'re here to help with orders, bespoke enquiries, trade accounts, and anything else.',
+  openGraph: {
+    title: 'Contact Us — Azarbi',
+    description: 'Get in touch with the Azarbi team. We\'re here to help with orders, bespoke enquiries, trade accounts, and anything else.',
+    url: 'https://azarbi.com/contact',
+    type: 'website',
+    images: [{
+      url: '/og-contact.jpg',
+      width: 1200,
+      height: 630,
+      alt: 'Azarbi — Contact Us for Moroccan Rugs'
+    }]
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Contact Us — Azarbi',
+    description: 'Get in touch with the Azarbi team. We\'re here to help with orders, bespoke enquiries.',
+    images: ['/og-contact.jpg']
+  },
+  alternates: {
+    canonical: 'https://azarbi.com/contact'
+  }
 }
 
 const quickLinks = [

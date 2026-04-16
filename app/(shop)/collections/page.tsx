@@ -8,7 +8,28 @@ import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema'
 
 export const metadata: Metadata = {
   title: 'All Collections — Azarbi Rugs',
-  description: 'Explore our complete collection of authentic Moroccan Berber rugs.',
+  description: 'Explore our complete collection of authentic Moroccan Berber rugs. Beni Ourain, Azilal, Kilim, and Boucherouite — each rug unique, fair trade.',
+  openGraph: {
+    title: 'All Collections — Azarbi Rugs',
+    description: 'Explore our complete collection of authentic Moroccan Berber rugs. Beni Ourain, Azilal, Kilim, and Boucherouite — each rug unique, fair trade.',
+    url: 'https://azarbi.com/collections',
+    type: 'website',
+    images: [{
+      url: '/og-collections.jpg',
+      width: 1200,
+      height: 630,
+      alt: 'Azarbi — Handwoven Berber Rugs Collections'
+    }]
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'All Collections — Azarbi Rugs',
+    description: 'Explore our complete collection of authentic Moroccan Berber rugs.',
+    images: ['/og-collections.jpg']
+  },
+  alternates: {
+    canonical: 'https://azarbi.com/collections'
+  }
 }
 
 export default async function CollectionsPage(props: {

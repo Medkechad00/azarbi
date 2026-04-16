@@ -5,7 +5,28 @@ import { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'The Master Weavers — Azarbi Rugs',
-  description: 'Meet the artisans behind the authentic Moroccan Berber rugs.',
+  description: 'Meet the Amazigh artisans behind authentic Moroccan Berber rugs. Each weaver brings decades of experience and unique artistic vision to every handwoven piece.',
+  openGraph: {
+    title: 'The Master Weavers — Azarbi Rugs',
+    description: 'Meet the Amazigh artisans behind authentic Moroccan Berber rugs. Each weaver brings decades of experience and unique artistic vision.',
+    url: 'https://azarbi.com/weavers',
+    type: 'website',
+    images: [{
+      url: '/og-weavers.jpg',
+      width: 1200,
+      height: 630,
+      alt: 'Azarbi — Master Weavers of Moroccan Berber Rugs'
+    }]
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'The Master Weavers — Azarbi Rugs',
+    description: 'Meet the Amazigh artisans behind authentic Moroccan Berber rugs.',
+    images: ['/og-weavers.jpg']
+  },
+  alternates: {
+    canonical: 'https://azarbi.com/weavers'
+  }
 }
 
 export default async function WeaversPage() {

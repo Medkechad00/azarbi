@@ -12,7 +12,7 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
   const supabase = await createClient()
   const { data: weaver } = await supabase
     .from('weavers')
-    .select('name, bio')
+    .select('slug, name, bio')
     .eq('slug', params.slug)
     .single()
 
@@ -21,6 +21,9 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
   return {
     title: `${weaver.name} — Azarbi Weavers`,
     description: weaver.bio?.substring(0, 160),
+    alternates: {
+      canonical: `https://azarbi.com/weavers/${weaver.slug}`
+    }
   }
 }
 

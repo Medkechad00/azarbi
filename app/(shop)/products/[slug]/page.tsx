@@ -19,7 +19,7 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
   const supabase = await createClient()
   const { data: product } = await supabase
     .from('products')
-    .select('title, category, width_cm, length_cm, material_pile, price_usd, primary_image_url, region, weavers(name)')
+    .select('slug, title, category, width_cm, length_cm, material_pile, price_usd, primary_image_url, region, weavers(name)')
     .eq('slug', params.slug)
     .single()
 
@@ -32,6 +32,9 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
       images: [{ url: product.primary_image_url, width: 1200, height: 900 }],
       type: 'website', // Use standard website or article due to Next bugs, or 'og:product'
     },
+    alternates: {
+      canonical: `https://azarbi.com/products/${product.slug}`
+    }
   }
 }
 

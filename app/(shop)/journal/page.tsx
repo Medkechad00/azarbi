@@ -1,8 +1,33 @@
 import { createClient } from '@/lib/supabase/server'
 import Image from 'next/image'
 import Link from 'next/link'
+import { Metadata } from 'next'
 
-export const metadata = { title: 'Journal — Azarbi Masterweavers' }
+export const metadata: Metadata = {
+  title: 'Journal — Azarbi Masterweavers',
+  description: 'Stories from the Atlas Mountains weaving cooperatives. Learn about Amazigh culture, traditional techniques, and the artisans behind your Moroccan rugs.',
+  openGraph: {
+    title: 'Journal — Azarbi Masterweavers',
+    description: 'Stories from the Atlas Mountains weaving cooperatives. Learn about Amazigh culture, traditional techniques, and the artisans behind your Moroccan rugs.',
+    url: 'https://azarbi.com/journal',
+    type: 'website',
+    images: [{
+      url: '/og-journal.jpg',
+      width: 1200,
+      height: 630,
+      alt: 'Azarbi — Journal from Atlas Mountains Weavers'
+    }]
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Journal — Azarbi Masterweavers',
+    description: 'Stories from the Atlas Mountains weaving cooperatives.',
+    images: ['/og-journal.jpg']
+  },
+  alternates: {
+    canonical: 'https://azarbi.com/journal'
+  }
+}
 
 export default async function JournalPage() {
   const supabase = await createClient()

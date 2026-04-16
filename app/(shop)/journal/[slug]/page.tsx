@@ -11,9 +11,15 @@ import { BreadcrumbSchema } from '@/components/seo/BreadcrumbSchema'
 export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const params = await props.params;
   const supabase = await createClient()
-  const { data } = await supabase.from('journal_posts').select('title, excerpt').eq('slug', params.slug).single()
+  const { data } = await supabase.from('journal_posts').select('slug, title, excerpt').eq('slug', params.slug).single()
   if (!data) return {}
-  return { title: `${data.title} — Azarbi Journal`, description: data.excerpt }
+  return { 
+    title: `${data.title} — Azarbi Journal`, 
+    description: data.excerpt,
+    alternates: {
+      canonical: `https://azarbi.com/journal/${data.slug}`
+    }
+  }
 }
 
 export const revalidate = 3600 // hourly
