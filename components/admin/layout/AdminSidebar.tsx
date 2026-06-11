@@ -64,8 +64,7 @@ export function AdminSidebar() {
       </div>
 
       {/* Navigation groups - Scrollable */}
-      <nav className="flex-1 px-3 py-2 overflow-y-auto 
-        scrollbar-thin scrollbar-thumb-[#332C28] scrollbar-track-transparent hover:scrollbar-thumb-[#4A423D]"
+      <nav className="flex-1 px-3 py-2 overflow-y-auto scrollbar-thin scrollbar-thumb-[#332C28] scrollbar-track-transparent hover:scrollbar-thumb-[#4A423D]"
       >
         {NAV_GROUPS.map((group) => (
           <div key={group.label} className="mb-6">

@@ -5,34 +5,22 @@ import { ProductFilters } from '@/components/product/ProductFilters'
 import { PaginatedGrid } from '@/components/product/PaginatedGrid'
 import { Metadata } from 'next'
 
-const CATEGORY_NAMES: Record<string, string> = {
-  'beni-ourain': 'beni_ourain',
-  'azilal': 'azilal',
-  'kilim': 'kilim',
-  'boucherouite': 'boucherouite',
-}
-
-const CATEGORY_TITLES: Record<string, string> = {
-  'beni-ourain': 'Beni Ourain',
-  'azilal': 'Azilal',
-  'kilim': 'Kilim',
-  'boucherouite': 'Boucherouite',
-}
-
-const CATEGORY_DESCS: Record<string, string> = {
-  'beni-ourain': 'Characterised by high-pile un-dyed Mermousa wool and geometric brown or black lines. These thick, heavy rugs come from the Middle Atlas mountains.',
-  'azilal': 'Woven from raw sheep\'s wool featuring vibrant, abstract symbols created from natural plant and mineral dyes. Each piece documents a personal family history.',
-  'kilim': 'Flat-weaves created without pile. Renowned for their tight geometric patterns and durability. Woven by nomadic tribes seeking lighter, transportable craft.',
-  'boucherouite': 'Vibrant, expressionist works made entirely from recycled textiles. Born from necessity, they are now celebrated for their unpredictable colour combinations.',
-}
-
 export async function generateMetadata(props: { params: Promise<{ category: string }> }): Promise<Metadata> {
   const params = await props.params;
-  const title = CATEGORY_TITLES[params.category]
-  if (!title) return {}
+  const supabase = await createClient()
+  // Look up by slug (URL uses hyphens, DB may use underscores)
+  const slugVariants = [params.category, params.category.replace(/-/g, '_')]
+  const { data } = await supabase
+    .from('categories')
+    .select('name, description')
+    .or(slugVariants.map(s => `slug.eq.${s}`).join(','))
+    .limit(1)
+    .single()
+
+  if (!data) return {}
   return {
-    title: `${title} Rugs — Azarbi`,
-    description: CATEGORY_DESCS[params.category],
+    title: `${data.name} Rugs — Azarbi`,
+    description: data.description || `Explore our ${data.name} collection of authentic Moroccan Berber rugs.`,
   }
 }
 
@@ -42,14 +30,36 @@ export default async function CategoryPage(props: {
 }) {
   const params = await props.params;
   const searchParams = await props.searchParams;
-  const dbCategory = CATEGORY_NAMES[params.category]
-  
-  if (!dbCategory) {
+  const supabase = await createClient()
+
+  // Resolve URL slug to DB slug (beni-ourain → beni_ourain)
+  const urlSlug = params.category
+  const dbSlug = urlSlug.replace(/-/g, '_')
+
+  // Validate category exists
+  const { data: category } = await supabase
+    .from('categories')
+    .select('slug, name, description')
+    .or(`slug.eq.${urlSlug},slug.eq.${dbSlug}`)
+    .limit(1)
+    .single()
+
+  if (!category) {
     notFound()
   }
 
-  const supabase = await createClient()
-  
+  // Fetch all categories for filter tabs
+  const { data: allCategories } = await supabase
+    .from('categories')
+    .select('slug, name')
+    .order('name')
+
+  const categoryTabs = (allCategories || []).map(c => ({
+    id: c.slug,
+    slug: c.slug.replace(/_/g, '-'),
+    label: c.name,
+  }))
+
   const sort = typeof searchParams.sort === 'string' ? searchParams.sort : 'created_at'
   const orderAsc = sort === 'price_asc'
   const sortCol = sort === 'price_asc' || sort === 'price_desc' ? 'price_usd' : 'created_at'
@@ -61,25 +71,25 @@ export default async function CategoryPage(props: {
       is_one_of_one, is_new_arrival, primary_image_url,
       weavers(name, slug)
     `, { count: 'exact' })
-    .eq('category', dbCategory)
+    .eq('category', category.slug)
     .order(sortCol, { ascending: orderAsc })
     .range(0, 23)
 
   return (
     <div className="bg-linen min-h-screen pb-32">
       <CollectionHeader 
-        title={CATEGORY_TITLES[params.category]}
-        category={dbCategory}
-        description={CATEGORY_DESCS[params.category]}
+        title={category.name}
+        category={category.slug}
+        description={category.description}
       />
       
       <div className="container mx-auto px-6 lg:px-12">
-        <ProductFilters />
+        <ProductFilters categories={categoryTabs} />
         
         <PaginatedGrid 
           initialProducts={(products as any) || []} 
           totalCount={count || 0}
-          category={dbCategory}
+          category={category.slug}
         />
       </div>
     </div>

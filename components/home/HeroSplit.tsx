@@ -40,8 +40,8 @@ export function HeroSplit() {
 
       <div className="w-full md:w-1/2 relative min-h-[50vh] md:min-h-screen bg-bone">
         <Image
-          src="https://images.unsplash.com/photo-1600166898405-da9535204843?auto=format&fit=crop&q=80&w=1200&h=1600"
-          alt="Authentic Beni Ourain rug draped in natural sunlight"
+          src="/images/home/luxury-moroccan-artisan-rug-hero.png"
+          alt="Exquisite hand-tied Moroccan rug featuring traditional Amazigh patterns"
           fill
           priority
           sizes="(max-width: 768px) 100vw, 50vw"

@@ -87,8 +87,8 @@ export default function OurStoryPage() {
         <div className="relative mb-28">
           <div className="relative w-full aspect-[21/9] rounded-brand overflow-hidden">
             <Image
-              src="https://images.unsplash.com/photo-1489749798305-4fea3ae63d23?auto=format&fit=crop&q=80&w=1600"
-              alt="Atlas Mountains landscape where Azarbi cooperatives are based"
+              src="/images/story/amazigh-weaving-heritage-story.png"
+              alt="Authentic Amazigh craftsmanship and weaving heritage in the Atlas Mountains"
               fill
               className="object-cover"
               sizes="100vw"

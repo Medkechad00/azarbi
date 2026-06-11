@@ -50,8 +50,8 @@ export default async function BespokePage() {
         {/* Hero image */}
         <div className="relative w-full aspect-[21/9] rounded-brand overflow-hidden mb-20">
           <Image
-            src="https://images.unsplash.com/photo-1544457070-4cd773b4d71e?auto=format&fit=crop&q=80&w=1600"
-            alt="Amazigh artisan weaving a bespoke Berber rug on a traditional wooden loom in Morocco"
+            src="/images/bespoke/moroccan-loom-weaving-workshop.png"
+            alt="Flat lay of a Moroccan weaving workshop showing traditional tools and vibrant wool yarns"
             fill
             className="object-cover"
             sizes="100vw"

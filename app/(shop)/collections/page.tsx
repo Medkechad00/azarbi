@@ -38,6 +38,18 @@ export default async function CollectionsPage(props: {
   const searchParams = await props.searchParams;
   const supabase = await createClient()
   
+  // Fetch categories from DB for filter tabs
+  const { data: dbCategories } = await supabase
+    .from('categories')
+    .select('slug, name')
+    .order('name')
+  
+  const categoryTabs = (dbCategories || []).map(c => ({
+    id: c.slug,
+    slug: c.slug.replace(/_/g, '-'),
+    label: c.name,
+  }))
+
   const sort = typeof searchParams.sort === 'string' ? searchParams.sort : 'created_at'
   const filterCat = typeof searchParams.category === 'string' ? searchParams.category : 'all'
   // Note: API uses order=desc for newest. We can map `sort` param accordingly.
@@ -60,15 +72,13 @@ export default async function CollectionsPage(props: {
 
   const { data: products, count } = await query
 
-  const categoryLabels: Record<string, string> = {
-    all: 'The Complete Edition',
-    beni_ourain: 'Beni Ourain',
-    azilal: 'Azilal',
-    kilim: 'Kilim',
-    boucherouite: 'Boucherouite',
-  }
-  
-  const headerTitle = categoryLabels[filterCat] || filterCat.replace('_', ' ')
+  // Build label from DB categories or fallback
+  const categoryLabelMap = Object.fromEntries(
+    (dbCategories || []).map(c => [c.slug, c.name])
+  )
+  const headerTitle = filterCat === 'all'
+    ? 'The Complete Edition'
+    : categoryLabelMap[filterCat] || filterCat.replace('_', ' ')
 
   return (
     <div className="bg-linen min-h-screen pb-32">
@@ -89,7 +99,7 @@ export default async function CollectionsPage(props: {
       />
       
       <div className="container mx-auto px-6 lg:px-12">
-        <ProductFilters />
+        <ProductFilters categories={categoryTabs} />
         
         <PaginatedGrid 
           initialProducts={(products as any) || []} 

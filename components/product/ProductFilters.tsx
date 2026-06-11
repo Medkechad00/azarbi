@@ -4,27 +4,42 @@ import * as React from 'react'
 import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 
-const categories = [
-  { id: 'all', slug: '', label: 'All Rugs' },
-  { id: 'beni_ourain', slug: 'beni-ourain', label: 'Beni Ourain' },
-  { id: 'azilal', slug: 'azilal', label: 'Azilal' },
-  { id: 'kilim', slug: 'kilim', label: 'Kilim' },
-  { id: 'boucherouite', slug: 'boucherouite', label: 'Boucherouite' },
-]
+export interface CategoryTab {
+  id: string
+  slug: string
+  label: string
+}
 
-export function ProductFilters() {
+interface ProductFiltersProps {
+  categories?: CategoryTab[]
+}
+
+export function ProductFilters({ categories: categoriesProp }: ProductFiltersProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
   const pathname = usePathname()
   
   const currentSort = searchParams.get('sort') || 'created_at'
 
+  // Prepend "All Rugs" tab to whatever categories come from the database
+  const categories: CategoryTab[] = [
+    { id: 'all', slug: '', label: 'All Rugs' },
+    ...(categoriesProp || []),
+  ]
+
   // Detect which category is active from the URL path
   const pathSegment = pathname.split('/').pop() || ''
-  const activeFromPath = categories.find(c => c.slug === pathSegment)
-  const activeCategory = activeFromPath?.id || (pathname === '/collections' ? 'all' : 'all')
+  const normalizedSegment = pathSegment.replace(/-/g, '_')
+  
+  const activeCategory = pathname === '/collections'
+    ? 'all'
+    : categories.find(c => 
+        c.slug === pathSegment || 
+        c.slug.replace(/-/g, '_') === normalizedSegment ||
+        c.id === normalizedSegment
+      )?.id || 'all'
 
-  const handleCategoryClick = (cat: typeof categories[number]) => {
+  const handleCategoryClick = (cat: CategoryTab) => {
     const sortParam = currentSort !== 'created_at' ? `?sort=${currentSort}` : ''
     if (cat.id === 'all') {
       router.push(`/collections${sortParam}`)
@@ -45,17 +60,18 @@ export function ProductFilters() {
   }
 
   return (
-    <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 py-8 mb-8 border-b border-bone2">
-      <div className="flex gap-2 overflow-x-auto pb-2 md:pb-0 w-full md:w-auto hide-scrollbar">
+    <div className="py-8 mb-8 border-b border-bone2 space-y-4">
+      {/* Category tabs — wrapping flex on all screens */}
+      <div className="flex flex-wrap gap-2">
         {categories.map((cat) => (
           <button
             key={cat.id}
             onClick={() => handleCategoryClick(cat)}
             className={cn(
-              "whitespace-nowrap px-4 py-2 text-label uppercase tracking-widest rounded-brand transition-colors",
+              "whitespace-nowrap px-4 py-2 text-label uppercase tracking-widest rounded-brand transition-all duration-200",
               activeCategory === cat.id 
-                ? "bg-clay text-linen" 
-                : "bg-bone text-smoke hover:bg-bone2"
+                ? "bg-clay text-linen shadow-sm" 
+                : "bg-bone text-smoke hover:bg-bone2 hover:text-night"
             )}
           >
             {cat.label}
@@ -63,6 +79,7 @@ export function ProductFilters() {
         ))}
       </div>
 
+      {/* Sort — always visible below the tabs */}
       <div className="flex items-center gap-3">
         <span className="text-label-sm uppercase tracking-widest text-smoke">Sort by</span>
         <select 

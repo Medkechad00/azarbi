@@ -30,7 +30,18 @@ export async function middleware(request: NextRequest) {
     }
   )
 
-  const { data: { user }, error } = await supabase.auth.getUser()
+  let user = null;
+  let error = null;
+  try {
+    const res = await supabase.auth.getUser();
+    user = res.data?.user;
+    error = res.error;
+  } catch (err) {
+    // Gracefully handle network/fetch failures
+    console.error('Middleware Supabase fetch error:', err);
+    error = err;
+  }
+
   const path = request.nextUrl.pathname
 
   // Admin route protection

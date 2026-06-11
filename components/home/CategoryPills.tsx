@@ -1,14 +1,20 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import { createClient } from '@/lib/supabase/server'
 
-const categories = [
-  { id: 'beni-ourain', label: 'Beni Ourain', image: 'https://images.unsplash.com/photo-1600166898405-da9535204843?auto=format&fit=crop&q=80&w=400&h=400' },
-  { id: 'azilal', label: 'Azilal', image: 'https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?auto=format&fit=crop&q=80&w=400&h=400' },
-  { id: 'kilim', label: 'Kilim', image: 'https://images.unsplash.com/photo-1489749798305-4fea3ae63d23?auto=format&fit=crop&q=80&w=400&h=400' },
-  { id: 'boucherouite', label: 'Boucherouite', image: 'https://images.unsplash.com/photo-1539020140153-e479b8c22e70?auto=format&fit=crop&q=80&w=400&h=400' },
-]
+// Fallback placeholder when a category has no image_url yet
+const FALLBACK_IMAGE = '/images/placeholder-category.svg'
 
-export function CategoryPills() {
+export async function CategoryPills() {
+  const supabase = await createClient()
+  const { data: categories } = await supabase
+    .from('categories')
+    .select('id, name, slug, image_url')
+    .order('name')
+    .limit(4)
+
+  if (!categories || categories.length === 0) return null
+
   return (
     <section className="py-24 bg-linen border-t border-bone2">
       <div className="container mx-auto px-6 lg:px-12">
@@ -23,20 +29,26 @@ export function CategoryPills() {
           {categories.map((cat) => (
             <Link 
               key={cat.id} 
-              href={`/collections/${cat.id}`}
+              href={`/collections/${cat.slug}`}
               className="group flex flex-col gap-4"
             >
-              <div className="relative aspect-square rounded-brand overflow-hidden bg-bone">
-                <Image 
-                  src={cat.image} 
-                  alt={`${cat.label} rugs`}
-                  fill
-                  sizes="(max-width: 768px) 50vw, 25vw"
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                />
+              <div className="relative aspect-[3/4] rounded-brand overflow-hidden bg-bone">
+                {cat.image_url ? (
+                  <Image 
+                    src={cat.image_url} 
+                    alt={`${cat.name} rugs`}
+                    fill
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                ) : (
+                  <div className="absolute inset-0 flex items-center justify-center bg-bone/80">
+                    <span className="font-display text-2xl text-smoke/50">{cat.name.charAt(0)}</span>
+                  </div>
+                )}
               </div>
               <div className="flex items-center justify-between">
-                <span className="font-display text-xl lg:text-2xl text-night group-hover:text-clay transition-colors">{cat.label}</span>
+                <span className="font-display text-xl lg:text-2xl text-night group-hover:text-clay transition-colors">{cat.name}</span>
                 <span className="text-smoke group-hover:translate-x-1 transition-transform">→</span>
               </div>
             </Link>

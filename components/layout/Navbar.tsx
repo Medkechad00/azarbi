@@ -110,14 +110,21 @@ export function Navbar() {
           }}
         >
           <button 
-            className="flex items-center gap-2 p-2 -mr-2 text-night hover:text-clay transition-colors"
+            className="flex items-center gap-2 p-2 -mr-2 text-night hover:text-clay transition-colors group"
             onClick={toggleCart}
           >
             <span className="hidden sm:inline text-label uppercase tracking-widest mt-0.5">Cart</span>
             <div className="relative">
-              <ShoppingCart size={22} weight="light" />
+              <ShoppingCart 
+                size={22} 
+                weight="light" 
+                className="transition-transform duration-200 group-hover:scale-110"
+              />
               {cartCount > 0 && (
-                <span className="absolute -top-1.5 -right-2 flex h-4 w-4 items-center justify-center rounded-full bg-clay text-[9px] text-white">
+                <span 
+                  key={cartCount}
+                  className="absolute -top-2 -right-2.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-clay text-[9px] text-white font-mono font-bold shadow-sm animate-[cartBadgePop_0.4s_cubic-bezier(0.34,1.56,0.64,1)]"
+                >
                   {cartCount}
                 </span>
               )}
