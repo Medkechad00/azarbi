@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Heart } from 'phosphor-react'
+import { Heart } from '@phosphor-icons/react'
 import { cn } from '@/lib/utils'
 import { useCart } from '@/store/cart'
 import { useUI } from '@/store/ui'

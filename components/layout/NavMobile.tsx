@@ -3,7 +3,7 @@
 import * as React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { X, ArrowRight } from 'phosphor-react'
+import { X, ArrowRight } from '@phosphor-icons/react'
 import { useUI } from '@/store/ui'
 import { cn } from '@/lib/utils'
 

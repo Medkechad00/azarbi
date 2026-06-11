@@ -1,6 +1,6 @@
 'use client'
 
-import { WhatsappLogo } from 'phosphor-react'
+import { WhatsappLogo } from '@phosphor-icons/react'
 
 export function WhatsAppCTA({ title, sku }: { title: string; sku: string }) {
   return (

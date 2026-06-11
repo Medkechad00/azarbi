@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import Link from 'next/link'
 import { useCart } from '@/store/cart'
 import { Button } from '@/components/ui/button'
-import { CheckCircle } from 'phosphor-react'
+import { CheckCircle } from '@phosphor-icons/react'
 
 export default function OrderConfirmationPage() {
   const { clearCart } = useCart()

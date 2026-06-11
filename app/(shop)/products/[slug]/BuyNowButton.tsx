@@ -1,6 +1,6 @@
 'use client'
 
-import { ArrowRight } from 'phosphor-react'
+import { ArrowRight } from '@phosphor-icons/react'
 import Link from 'next/link'
 
 interface BuyNowButtonProps {

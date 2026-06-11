@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Heart } from 'phosphor-react'
+import { Heart } from '@phosphor-icons/react'
 import { Button } from '@/components/ui/button'
 import { useWishlist } from '@/store/wishlist'
 

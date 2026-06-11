@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { X } from 'phosphor-react'
+import { X } from '@phosphor-icons/react'
 import { cn } from '@/lib/utils'
 
 export interface ModalProps {

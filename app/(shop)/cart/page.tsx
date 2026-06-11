@@ -3,7 +3,7 @@
 import { useCart } from '@/store/cart'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Trash, ArrowRight } from 'phosphor-react'
+import { Trash, ArrowRight } from '@phosphor-icons/react'
 import { Button } from '@/components/ui/button'
 import { formatPrice } from '@/lib/utils'
 

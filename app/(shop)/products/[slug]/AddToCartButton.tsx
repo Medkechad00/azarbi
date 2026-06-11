@@ -2,7 +2,7 @@
 
 import { useCart } from '@/store/cart'
 import { Button } from '@/components/ui/button'
-import { ArrowRight } from 'phosphor-react'
+import { ArrowRight } from '@phosphor-icons/react'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
