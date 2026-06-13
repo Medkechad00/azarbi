@@ -20,18 +20,17 @@ export default function AdminLoginPage() {
     e.preventDefault()
     setIsLoading(true)
     setErrorMsg('')
-    
+
     const formData = new FormData(e.currentTarget)
     const email = formData.get('email') as string
     const password = formData.get('password') as string
 
-    // Use server-side rate-limited login endpoint
+    // Rate-limit check (no server-side sign-in — browser client sets cookies reliably)
     const res = await fetch('/api/admin/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
     })
-
     if (!res.ok) {
       const data = await res.json()
       setErrorMsg(data.error || 'Login failed')
@@ -39,9 +38,24 @@ export default function AdminLoginPage() {
       return
     }
 
-    // Re-sync client session after server-side login
+    // Sign in via browser client — this reliably sets the session cookies
     const supabase = createClient()
-    await supabase.auth.signInWithPassword({ email, password })
+    const { data: authData, error: authError } = await supabase.auth.signInWithPassword({ email, password })
+
+    if (authError) {
+      setErrorMsg('Invalid credentials')
+      setIsLoading(false)
+      return
+    }
+
+    const ADMIN_ROLES = ['admin', 'super_admin', 'operations', 'content', 'read_only']
+    const role = authData.user?.app_metadata?.role
+    if (!role || !ADMIN_ROLES.includes(role)) {
+      await supabase.auth.signOut()
+      setErrorMsg('Access denied: this account does not have admin privileges')
+      setIsLoading(false)
+      return
+    }
 
     router.refresh()
     router.push('/admin/dashboard')
