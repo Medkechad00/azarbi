@@ -63,14 +63,14 @@ export default function CareGuidePage() {
         <p className="text-label uppercase tracking-[0.1em] text-smoke mb-4">Helpful Resource</p>
         <h1 className="font-display text-display-xl text-night mb-6">Care Guide</h1>
         <p className="text-lg text-smoke leading-relaxed mb-16 max-w-2xl">
-          A well-cared-for Moroccan rug lasts generations. Follow these simple guidelines 
+          A well-cared-for Moroccan rug lasts generations. Follow these simple guidelines
           to keep your handwoven piece beautiful for years to come.
         </p>
 
         {/* Golden rule banner */}
         <div className="bg-argane/10 border border-argane/20 rounded-brand p-8 lg:p-10 mb-16">
           <p className="font-display text-xl text-night leading-relaxed">
-            The golden rule: <strong>blot, don&apos;t rub</strong>. Whether it&apos;s a spill, a stain, or a splash — 
+            The golden rule: <strong>blot, don&apos;t rub</strong>. Whether it&apos;s a spill, a stain, or a splash —
             always press gently with a clean cloth. Rubbing spreads the stain and damages fibres.
           </p>
         </div>
@@ -155,7 +155,7 @@ export default function CareGuidePage() {
           <div className="bg-argane/10 border border-argane/20 rounded-brand p-8">
             <h3 className="font-display text-xl text-night mb-3">Professional Cleaning</h3>
             <p className="text-smoke text-sm leading-relaxed mb-4">
-              We recommend professional cleaning every 3–5 years. Always choose a cleaner experienced 
+              We recommend professional cleaning every 3–5 years. Always choose a cleaner experienced
               with handwoven wool rugs — not all dry cleaners understand natural-dye fibres.
             </p>
             <div className="flex flex-col gap-2">

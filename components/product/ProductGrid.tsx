@@ -15,9 +15,9 @@ export function ProductGrid({ products }: { products: ProductCardProps['product'
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
       {products.map((product, idx) => (
-        <ProductCard 
-          key={product.id} 
-          product={product} 
+        <ProductCard
+          key={product.id}
+          product={product}
           priority={idx < 4} // Preload first row of images
         />
       ))}

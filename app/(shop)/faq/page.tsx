@@ -116,7 +116,7 @@ export default function FAQPage() {
             <div>
               <h3 className="font-display text-xl text-night mb-3">Still Have Questions?</h3>
               <p className="text-smoke text-sm leading-relaxed mb-6">
-                We&apos;re happy to help with anything not covered above. 
+                We&apos;re happy to help with anything not covered above.
                 Our team typically responds within 24 hours.
               </p>
             </div>
@@ -126,7 +126,7 @@ export default function FAQPage() {
             <div>
               <h3 className="font-display text-xl text-night mb-3">Need Something Custom?</h3>
               <p className="text-smoke text-sm leading-relaxed mb-6">
-                Design your dream rug with our master weavers. Tell us your vision 
+                Design your dream rug with our master weavers. Tell us your vision
                 and we&apos;ll make it real.
               </p>
             </div>

@@ -73,7 +73,7 @@ export default async function ContactPage() {
         <p className="text-label uppercase tracking-[0.1em] text-smoke mb-4">Get in Touch</p>
         <h1 className="font-display text-display-xl text-night mb-6">Contact Us</h1>
         <p className="text-lg text-smoke leading-relaxed mb-16 max-w-2xl">
-          Whether you have a question about an order, need help choosing the perfect rug, 
+          Whether you have a question about an order, need help choosing the perfect rug,
           or want to discuss a bespoke commission — we&apos;d love to hear from you.
         </p>
 

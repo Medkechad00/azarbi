@@ -36,7 +36,7 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
   const { items, addItem, removeItem } = useCart()
   const { openCart } = useUI()
   const btnRef = useRef<HTMLButtonElement>(null)
-  
+
   // Prevent hydration mismatches with persistent stores
   const [mounted, setMounted] = useState(false)
   useEffect(() => setMounted(true), [])
@@ -136,7 +136,7 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
           <div className="absolute inset-0 z-20 flex items-center justify-center bg-night/60 animate-fade-in pointer-events-none">
             <div className="bg-white rounded-full p-3 shadow-2xl animate-bounce-in">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-clay">
-                <path d="M5 13l4 4L19 7" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M5 13l4 4L19 7" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>
           </div>
@@ -147,8 +147,8 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
           ref={btnRef}
           className={cn(
             "absolute top-3 right-3 p-2 rounded-full transition-all duration-300 z-10",
-            isInCart 
-              ? "bg-clay shadow-md scale-110" 
+            isInCart
+              ? "bg-clay shadow-md scale-110"
               : "bg-white/80 backdrop-blur-sm shadow-sm hover:bg-white hover:shadow-md hover:scale-110",
             flyAnim && "opacity-0"
           )}

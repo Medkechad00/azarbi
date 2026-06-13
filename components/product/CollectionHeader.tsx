@@ -8,14 +8,14 @@ interface CollectionHeaderProps {
 
 export async function CollectionHeader({ category, title, description }: CollectionHeaderProps) {
   const supabase = await createClient()
-  
+
   let artisanCount = 0
   if (category && category !== 'all') {
     const { data } = await supabase
       .from('products')
       .select('weaver_id')
       .eq('category', category)
-    
+
     if (data) {
       const uniqueWeavers = new Set(data.map(p => p.weaver_id).filter(Boolean))
       artisanCount = uniqueWeavers.size
@@ -39,7 +39,7 @@ export async function CollectionHeader({ category, title, description }: Collect
             {description || "Explore our collection of authentic, handwoven masterworks from the Atlas Mountains."}
           </p>
         </div>
-        
+
         <div className="flex flex-col gap-1 items-start md:items-end p-5 border border-bone2 rounded-brand bg-bone/30">
           <span className="font-display text-3xl text-clay tracking-wider">{artisanCount}</span>
           <span className="text-label-sm text-night uppercase tracking-widest mt-1">Master Weavers</span>
