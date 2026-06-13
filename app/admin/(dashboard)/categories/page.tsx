@@ -1,15 +1,12 @@
 import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/static'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Tags, Plus, Pencil, Trash2, X, ImageIcon, Upload } from 'lucide-react'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { requireAdmin } from '@/lib/admin/auth'
-import fs from 'fs'
-import path from 'path'
 
-// ── Shared upload helper ──────────────────────────────
-const UPLOAD_DIR = path.join(process.cwd(), 'public', 'uploads', 'categories')
 const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5 MB
 const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/avif']
 
@@ -19,14 +16,20 @@ async function handleImageUpload(file: File | null): Promise<string | null> {
   if (!ALLOWED_TYPES.includes(file.type))
     throw new Error('Invalid file type. Allowed: JPEG, PNG, WebP, AVIF')
 
-  fs.mkdirSync(UPLOAD_DIR, { recursive: true })
   const bytes = await file.arrayBuffer()
   const buffer = Buffer.from(bytes)
   const ext =
     file.name.split('.').pop()?.toLowerCase().replace(/[^a-z0-9]/g, '') || 'jpg'
   const filename = `${Date.now()}-${crypto.randomUUID()}.${ext}`
-  fs.writeFileSync(path.join(UPLOAD_DIR, filename), buffer)
-  return `/uploads/categories/${filename}`
+
+  const adminClient = createAdminClient()
+  const { error } = await adminClient.storage
+    .from('categories')
+    .upload(filename, buffer, { contentType: file.type, upsert: false })
+  if (error) throw new Error(error.message)
+
+  const { data: { publicUrl } } = adminClient.storage.from('categories').getPublicUrl(filename)
+  return publicUrl
 }
 
 export default async function CategoriesPage({

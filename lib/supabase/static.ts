@@ -8,3 +8,11 @@ export function createStaticClient() {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
   )
 }
+
+// Service-role client for server-side operations that bypass RLS (e.g. storage uploads)
+export function createAdminClient() {
+  return createSupabaseClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  )
+}

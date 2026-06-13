@@ -1,11 +1,10 @@
 import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/static'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft, Save, PackagePlus } from 'lucide-react'
 import { revalidatePath } from 'next/cache'
 import { requireAdmin } from '@/lib/admin/auth'
-import fs from 'fs'
-import path from 'path'
 
 export default async function NewProductPage() {
   const supabase = await createClient()
@@ -20,12 +19,9 @@ export default async function NewProductPage() {
     'use server'
     await requireAdmin()
 
-    // File Upload Handler Helper
-    const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'products')
-    fs.mkdirSync(uploadDir, { recursive: true })
-
     const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5MB
     const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/avif']
+    const adminClient = createAdminClient()
 
     async function handleUpload(file: File | null): Promise<string | null> {
       if (!file || file.size === 0) return null
@@ -35,8 +31,12 @@ export default async function NewProductPage() {
       const buffer = Buffer.from(bytes)
       const ext = file.name.split('.').pop()?.toLowerCase().replace(/[^a-z0-9]/g, '') || 'jpg'
       const filename = `${Date.now()}-${crypto.randomUUID()}.${ext}`
-      fs.writeFileSync(path.join(uploadDir, filename), buffer)
-      return `/uploads/products/${filename}`
+      const { error } = await adminClient.storage
+        .from('products')
+        .upload(filename, buffer, { contentType: file.type, upsert: false })
+      if (error) throw new Error(error.message)
+      const { data: { publicUrl } } = adminClient.storage.from('products').getPublicUrl(filename)
+      return publicUrl
     }
 
     // Process Images
