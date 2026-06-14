@@ -25,9 +25,10 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
 
   if (!product) return {}
 
+  const categoryLabel = product.category?.replace(/_/g, ' ') || 'Berber'
   return {
-    title: `${product.title} — ${product.category.replace('_', ' ')} Rug from ${product.region}`,
-    description: `Authentic ${product.category.replace('_', ' ')} rug (${product.width_cm}×${product.length_cm}cm). ${product.material_pile}. Woven by ${(product.weavers as any)?.name || 'a master artisan'} in ${product.region}, Morocco. One of a kind. Fair trade. $${product.price_usd.toLocaleString()}.`,
+    title: `${product.title} — ${categoryLabel} Rug from ${product.region || 'Morocco'}`,
+    description: `Authentic ${categoryLabel} rug (${product.width_cm}×${product.length_cm}cm). ${product.material_pile}. Woven by ${(product.weavers as any)?.name || 'a master artisan'} in ${product.region || 'Morocco'}. One of a kind. Fair trade. $${product.price_usd.toLocaleString()}.`,
     openGraph: {
       images: [{ url: product.primary_image_url, width: 1200, height: 900 }],
       type: 'website', // Use standard website or article due to Next bugs, or 'og:product'
@@ -63,7 +64,7 @@ export default async function ProductPage(props: { params: Promise<{ slug: strin
     notFound()
   }
 
-  const images = [product.primary_image_url, ...(product.gallery_image_urls || [])]
+  const images = [product.primary_image_url, ...(product.gallery_image_urls || [])].filter(Boolean)
 
   return (
     <article className="min-h-screen bg-linen pt-24 pb-32">
@@ -71,7 +72,7 @@ export default async function ProductPage(props: { params: Promise<{ slug: strin
       <BreadcrumbSchema items={[
         { name: 'Home', url: 'https://azarbi.com' },
         { name: 'Collections', url: 'https://azarbi.com/collections' },
-        { name: product.category.replace('_', ' '), url: `https://azarbi.com/collections/${product.category}` },
+        { name: product.category?.replace(/_/g, ' ') || 'Collections', url: `https://azarbi.com/collections/${product.category || ''}` },
         { name: product.title, url: `https://azarbi.com/products/${product.slug}` }
       ]} />
 
@@ -81,14 +82,14 @@ export default async function ProductPage(props: { params: Promise<{ slug: strin
           {/* Left: Image Gallery (55%) */}
           <div className="w-full lg:w-[55%] flex flex-col gap-4">
             <div className="relative aspect-rug w-full overflow-hidden rounded-brand bg-bone border border-bone2 group">
-              <Image
-                src={product.primary_image_url}
-                alt={`Authentic ${product.category} rug, woven by ${product.weavers?.name} in ${product.region}, Morocco`}
+              {images[0] && <Image
+                src={images[0]}
+                alt={`Authentic ${product.category?.replace(/_/g, ' ') || 'Berber'} rug, woven by ${product.weavers?.name || 'an artisan'} in ${product.region || 'Morocco'}, Morocco`}
                 fill
                 priority
                 sizes="(max-width: 1024px) 100vw, 55vw"
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
-              />
+              />}
               {product.is_one_of_one && product.status === 'available' && (
                 <span className="absolute top-4 left-4 tag-cta text-[10px]">
                   Only 1 Left
@@ -123,7 +124,7 @@ export default async function ProductPage(props: { params: Promise<{ slug: strin
             <div className="sticky top-32">
 
               <p className="text-label text-smoke uppercase tracking-widest mb-4">
-                {product.category.replace('_', ' ')} · {product.region}
+                {product.category?.replace(/_/g, ' ') || 'Berber'} · {product.region || 'Morocco'}
               </p>
 
               <h1 className="font-display text-4xl lg:text-5xl text-night mb-4">{product.title}</h1>

@@ -6,14 +6,7 @@ export const metadata: Metadata = {
   description: 'Exclusive pricing, priority sourcing, and dedicated support for interior designers, architects, and hospitality professionals.',
 }
 
-const benefits = [
-  { icon: '◇', title: 'Exclusive Pricing', desc: 'Preferential pricing on all rugs, with additional project-based discounts for multi-piece orders.' },
-  { icon: '◈', title: 'Priority Sourcing', desc: 'Need a specific size, colour palette, or weaving style? We source directly from our cooperative network on your behalf.' },
-  { icon: '○', title: 'Dedicated Account Manager', desc: 'A single point of contact who understands your aesthetic and curates selections tailored to your projects.' },
-  { icon: '□', title: 'Memo Program', desc: 'Borrow rugs on approval to present to clients. We ship directly to your studio or project site.' },
-  { icon: '△', title: 'High-Res Assets', desc: 'Professional photography and product specifications for your mood boards and client presentations.' },
-  { icon: '⬡', title: 'Extended Returns', desc: 'Trade members enjoy a 30-day return window instead of the standard 14 days for maximum flexibility.' },
-]
+
 
 const steps = [
   { num: '01', title: 'Apply', desc: 'Fill out the form below with your company details and a link to your portfolio or website.' },
@@ -54,22 +47,7 @@ export default async function TradeProgramPage() {
           ))}
         </div>
 
-        {/* Benefits */}
-        <div className="mb-20">
-          <div className="flex items-center gap-4 mb-10">
-            <h2 className="font-display text-2xl text-night flex-shrink-0">Member Benefits</h2>
-            <div className="h-px flex-1 bg-bone2" />
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {benefits.map((benefit) => (
-              <div key={benefit.title} className="bg-bone/30 rounded-brand border border-bone2 p-8 group hover:border-clay/30 transition-colors">
-                <span className="text-2xl text-clay/50 block mb-4">{benefit.icon}</span>
-                <h3 className="font-display text-lg text-night mb-3 group-hover:text-clay transition-colors">{benefit.title}</h3>
-                <p className="text-sm text-smoke leading-relaxed">{benefit.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+        
 
         {/* How it works */}
         <div className="mb-20">

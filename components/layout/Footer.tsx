@@ -5,9 +5,11 @@ import { createClient } from '@/lib/supabase/server'
 
 export async function Footer() {
   const supabase = await createClient()
-  
-  // Fetch dynamic settings for support/HQ if they exist
-  const { data: settings } = await supabase.from('platform_settings').select('*').eq('id', 1).single()
+
+  const [{ data: settings }, { data: categories }] = await Promise.all([
+    supabase.from('platform_settings').select('*').eq('id', 1).single(),
+    supabase.from('categories').select('name, slug').order('name'),
+  ])
 
   return (
     <footer className="relative bg-night text-linen overflow-hidden pt-24 pb-12 mt-auto">
@@ -31,10 +33,17 @@ export async function Footer() {
           <div>
             <h4 className="text-label uppercase tracking-widest text-smoke mb-6">Collections</h4>
             <ul className="flex flex-col gap-3">
-              <li><Link href="/collections/beni-ourain" className="hover:text-clay transition-colors">Beni Ourain</Link></li>
-              <li><Link href="/collections/azilal" className="hover:text-clay transition-colors">Azilal</Link></li>
-              <li><Link href="/collections/kilim" className="hover:text-clay transition-colors">Kilim</Link></li>
-              <li><Link href="/collections/boucherouite" className="hover:text-clay transition-colors">Boucherouite</Link></li>
+              {categories && categories.length > 0 ? (
+                categories.map((cat) => (
+                  <li key={cat.slug}>
+                    <Link href={`/collections/${cat.slug}`} className="hover:text-clay transition-colors">
+                      {cat.name}
+                    </Link>
+                  </li>
+                ))
+              ) : (
+                <li><Link href="/collections" className="hover:text-clay transition-colors">All Collections</Link></li>
+              )}
               <li><Link href="/bespoke" className="hover:text-clay transition-colors">Bespoke Orders</Link></li>
             </ul>
           </div>
@@ -65,9 +74,13 @@ export async function Footer() {
           <p className="text-xs text-smoke">
             &copy; {new Date().getFullYear()} Azarbi. All rights reserved.
           </p>
-          <div className="flex gap-6 text-xs text-smoke">
+          <div className="flex gap-6 text-xs text-smoke items-center">
             <Link href="/privacy" className="hover:text-linen transition-colors">Privacy Policy</Link>
             <Link href="/terms" className="hover:text-linen transition-colors">Terms of Service</Link>
+            <span className="text-smoke/50">|</span>
+            <a href="https://www.bidayalab.com/" target="_blank" rel="noopener noreferrer" className="hover:text-linen transition-colors">
+              Crafted In The Labs of BidayaLab
+            </a>
           </div>
         </div>
       </div>

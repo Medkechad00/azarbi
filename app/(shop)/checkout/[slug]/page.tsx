@@ -53,19 +53,19 @@ export default async function CheckoutPage(props: { params: Promise<{ slug: stri
             <div className="bg-bone/30 rounded-brand border border-bone2 overflow-hidden">
               {/* Product Image */}
               <div className="relative aspect-square bg-bone">
-                <Image
+                {product.primary_image_url && <Image
                   src={product.primary_image_url}
                   alt={product.title}
                   fill
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 50vw"
-                />
+                />}
               </div>
               
               {/* Product Info */}
               <div className="p-6 lg:p-8">
                 <span className="text-label-sm text-smoke uppercase tracking-widest block mb-2">
-                  {product.category.replace('_', ' ')} · One of a Kind
+                  {product.category?.replace(/_/g, ' ') || 'Berber'} · One of a Kind
                 </span>
                 <h2 className="font-display text-2xl text-night mb-2">{product.title}</h2>
                 {weaver?.name && (
